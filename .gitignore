@@ -1,0 +1,7 @@
+.vagrant
+.idea/
+*.iml
+tmp/
+*.log
+vagrant/elk-stack
+
