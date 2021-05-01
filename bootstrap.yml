@@ -1,0 +1,7 @@
+- hosts: elk
+  become: True
+  tasks:
+    - name: install Docker
+      include_role:
+        name: docker
+  

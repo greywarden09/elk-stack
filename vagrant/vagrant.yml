@@ -1,0 +1,9 @@
+all:
+  hosts:
+    elk:
+      ansible_host: elk-stack
+      ansible_user: vagrant
+      ansible_ssh_common_args: -F vagrant/elk-stack
+    vars:
+      ansible_python_interpreter: /usr/bin/python3
+
