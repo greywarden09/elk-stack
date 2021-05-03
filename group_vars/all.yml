@@ -1,0 +1,13 @@
+elasticsearch:
+  version: 7.12.1
+  data_dir: /opt/elk/elasticsearch/data
+  conf_dir: /opt/elk/elasticsearch/conf
+  logs_dir: /opt/elk/elasticsearch/logs
+logstash:
+  version: 7.12.1
+  conf_dir: /opt/elk/logstash/conf
+  pipeline_dir: /opt/elk/logstash/pipeline
+  logs_dir: /opt/elk/logstash/logs
+kibana:
+  version: 7.12.1
+  conf_dir: /opt/elk/kibana/conf
