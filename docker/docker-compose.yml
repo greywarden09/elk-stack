@@ -1,0 +1,64 @@
+version: '3.7'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.1
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+      - elasticsearch-conf:/usr/share/elasticsearch/config
+    restart: unless-stopped
+    environment:
+      node.name: elasticsearch
+      discovery.type: 'single-node'
+      bootstrap.memory_lock: "true"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    ports:
+      - 9200:9200
+      - 9300:9300
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elk
+    container_name: elasticsearch
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.12.1
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - logstash-conf:/usr/share/logstash/config
+    restart: unless-stopped
+    environment:
+      monitoring.elasticsearch.hosts: "http://elasticsearch:9200"
+      LS_JAVA_OPTS: "-Xms512m -Xmx512m"
+    ports:
+      - 9600:9600
+      - 5044:5044
+    networks:
+      - elk
+    container_name: logstash
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.12.1
+    volumes:
+      - kibana-conf:/usr/share/kibana/config
+    restart: unless-stopped
+    environment:
+      elasticsearch.url: "http://elasticsearch:9200"
+      elasticsearch.hosts: "http://elasticsearch:9200"
+      server.name: kibana
+    ports:
+      - 5601:5601
+    networks:
+      - elk
+    container_name: kibana
+
+volumes:
+  elasticsearch-data:
+  elasticsearch-conf:
+  logstash-conf:
+  kibana-conf:
+
+networks:
+  elk:
+    driver: bridge
+
