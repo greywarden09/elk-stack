@@ -11,3 +11,9 @@ logstash:
 kibana:
   version: 7.12.1
   conf_dir: /opt/elk/kibana/conf
+filebeat:
+  version: 7.12.1
+  conf_dir: /etc/filebeat
+metricbeat:
+  version: 7.12.1
+  conf_dir: /etc/metricbeat

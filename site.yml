@@ -9,3 +9,5 @@
     - { name: elasticsearch, tags: elasticsearch }
     - { name: logstash, tags: logstash }
     - { name: kibana, tags: kibana }
+    - { name: filebeat, tags: filebeat }
+    - { name: metricbeat, tags: metricbeat }

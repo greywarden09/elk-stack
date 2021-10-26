@@ -1,0 +1,14 @@
+- name: install filebeat
+  apt:
+    deb: https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{ filebeat.version }}-amd64.deb
+
+- name: deploy filebeat configuration
+  copy:
+    src: filebeat.yml
+    dest: "{{ filebeat.conf_dir }}/filebeat.yml"
+
+- name: restart filebeat
+  systemd:
+    daemon_reload: yes
+    name: filebeat
+    state: restarted

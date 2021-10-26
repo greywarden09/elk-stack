@@ -1,0 +1,14 @@
+- name: install metricbeat
+  apt:
+    deb: https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-{{ metricbeat.version }}-amd64.deb
+
+- name: deploy metricbeat configuration
+  copy:
+    src: metricbeat.yml
+    dest: "{{ metricbeat.conf_dir }}/metricbeat.yml"
+
+- name: restart metricbeat
+  systemd:
+    daemon_reload: yes
+    name: metricbeat
+    state: restarted
